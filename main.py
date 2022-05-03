@@ -31,6 +31,7 @@ class Notepad:
     def __init__(self,**kwargs):
         #setting icon
         try:
+            #icon currently not working, look into that
             self.__root.wm_iconbitmap(default="noteslogo_bDw_icon.ico")
         except:
             pass
@@ -47,7 +48,7 @@ class Notepad:
             pass
 
         #set title of window
-        self.__root.title("Untitled - Note")
+        self.__root.title("Untitled - TempNote")
 
         #centering window
         screenWidth = self.__root.winfo_screenwidth()
@@ -79,10 +80,11 @@ class Notepad:
         #save file
         self.__fileMenu.add_command(label="Save", command=self.__saveFile)
 
-        #line of dialog
+        #line in dropdown menu, separates exit from the rest
         self.__fileMenu.add_separator()
         self.__fileMenu.add_command(label="Exit", command=self.__quitApplication)
 
+        #add dropdown menu that holds all commands we just created on __fileMenu
         self.__menuBar.add_cascade(label="File", menu=self.__fileMenu)
 
         #cut copy paste
