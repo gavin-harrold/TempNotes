@@ -94,7 +94,7 @@ class Notepad:
         self.__menuBar.add_cascade(label="Edit", menu=self.__editMenu)
 
         #description feature
-        self.__helpMenu.add_command(label="About Notepad", command=self.__showAbout)
+        self.__helpMenu.add_command(label="About TempNotes", command=self.__showAbout)
         self.__menuBar.add_cascade(label="Help", menu=self.__helpMenu)
 
         self.__root.config(menu=self.__menuBar)
@@ -112,7 +112,7 @@ class Notepad:
 
     """show information about itself"""
     def __showAbout(self):
-        showinfo("Notepad", "By Gavin Harrold")
+        showinfo("TempNotes", "The temporary, 24 hour journaling app.\nBy Gavin Harrold")
 
     """opens a file via file explore popup"""
     def __openFile(self):
@@ -122,7 +122,7 @@ class Notepad:
         if self.__file == "":
             self.__file = None
         else:
-            self.__root.title(os.path.basename(self.__file) + " - Note")
+            self.__root.title(os.path.basename(self.__file) + " - TempNote")
             self.__textArea.delete(1.0,END)
             file = open(self.__file, "r")
             self.__textArea.insert(1.0, file.read())
@@ -130,7 +130,7 @@ class Notepad:
 
     """creates a new blank file"""
     def __newFile(self):
-        self.__root.title("Untitled Note")
+        self.__root.title("Untitled TempNote")
         self.__file = None
         self.__textArea.delete(1.0,END)
     
@@ -148,7 +148,7 @@ class Notepad:
                 file.write(self.__textArea.get(1.0, END))
                 file.close()
 
-                self.__root.title(os.path.basename(self.__file) + "- Note")
+                self.__root.title(os.path.basename(self.__file) + "- TempNote")
 
         else:
             file = open(self.__file, "w")
