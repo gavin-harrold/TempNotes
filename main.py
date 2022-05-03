@@ -1,16 +1,14 @@
 from textwrap import fill
-import tkinter
 import os
 from tkinter import *
-
 from tkinter.messagebox import *
-
 from tkinter.filedialog import *
 
 from ctypes import windll
 #fix blurriness of text caused by high DPI
 windll.shcore.SetProcessDpiAwareness(1)
 
+"""class which describes notepad instance"""
 class Notepad:
     __root = Tk()
     #default shtuff
@@ -27,6 +25,9 @@ class Notepad:
     __file = None
 
 
+    """
+    initiate variables for class, including height and width
+    """
     def __init__(self,**kwargs):
         #setting icon
         try:
@@ -66,7 +67,7 @@ class Notepad:
         self.__root.grid_columnconfigure(0, weight=1)
 
         #add controls
-        #New Edit Save Wumbo?
+        #New Edit Save Wumbo? (North East South West)
         self.__textArea.grid(sticky= N + E + S + W)
 
         #new file
@@ -104,13 +105,16 @@ class Notepad:
         self.__scrollBar.config(command=self.__textArea.yview)
         self.__textArea.config(yscrollcommand=self.__scrollBar.set)
 
+    """quit the application"""
     def __quitApplication(self):
+        #goodbye root
         self.__root.destroy()
-        #goodbye window
 
+    """show information about itself"""
     def __showAbout(self):
         showinfo("Notepad", "By Gavin Harrold")
 
+    """opens a file via file explore popup"""
     def __openFile(self):
         self.__file = askopenfilename(defaultextension=".txt",
                                         filetypes=[("All Files", "*.*"),
@@ -124,11 +128,13 @@ class Notepad:
             self.__textArea.insert(1.0, file.read())
             file.close()
 
+    """creates a new blank file"""
     def __newFile(self):
         self.__root.title("Untitled Note")
         self.__file = None
         self.__textArea.delete(1.0,END)
     
+    """saves a file using save as"""
     def __saveFile(self):
         if self.__file == None:
             self.__file = asksaveasfilename(initialfile="untitled.txt",
@@ -149,17 +155,22 @@ class Notepad:
             file.write(self.__textArea.get(1.0, END))
             file.close()
 
+    """cut functionality"""
     def __cut(self):
         self.__textArea.event_generate("<<Cut>>")
 
+    """copy functionality"""
     def __copy(self):
         self.__textArea.event_generate("<<Copy>>")
 
+    """paste functionality"""
     def __paste(self):
         self.__textArea.event_generate("<<Paste>>")
 
+    """runs main loop of Tk instance __root"""
     def run(self):
         self.__root.mainloop()
 
+#initiate new Notepad instance and run it
 notepad = Notepad(width=600, height=400)
 notepad.run()
