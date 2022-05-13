@@ -1,6 +1,8 @@
+from email.mime import image
 from textwrap import fill
 import os
 from tkinter import *
+import tkinter
 from tkinter.messagebox import *
 from tkinter.filedialog import *
 
@@ -10,7 +12,7 @@ windll.shcore.SetProcessDpiAwareness(1)
 
 """class which describes notepad instance"""
 class Notepad:
-    __root = Tk()
+    __root = tkinter.Tk()
     #default shtuff
     __width = 300
     __height = 300
@@ -31,9 +33,11 @@ class Notepad:
     def __init__(self,**kwargs):
         #setting icon
         try:
-            #icon currently not working, look into that
-            self.__root.wm_iconbitmap(default="noteslogo_bDw_icon.ico")
+            #working now :)
+            photo = PhotoImage(file='notes\\notesLogo.png')
+            self.__root.iconphoto(False, photo)
         except:
+            print("image not found!")
             pass
 
         try:
@@ -48,7 +52,7 @@ class Notepad:
             pass
 
         #set title of window
-        self.__root.title("Untitled - TempNote")
+        self.__root.title("Today's Note - TempNote")
 
         #centering window
         screenWidth = self.__root.winfo_screenwidth()
@@ -71,10 +75,10 @@ class Notepad:
         #New Edit Save Wumbo? (North East South West)
         self.__textArea.grid(sticky= N + E + S + W)
 
-        #new file
+        #new file // could still use this
         self.__fileMenu.add_command(label="New", command=self.__newFile)
 
-        #open file
+        #open file // don't need this
         self.__fileMenu.add_command(label="Open", command=self.__openFile)
 
         #save file
